@@ -3,67 +3,80 @@ import "./input.scss";
 
 type LabelPosition = "top" | "side";
 type Size = "xs" | "md" | "lg" | "xl";
+type Required = string | 'required' | 'asteriks';
 
 type Props = {
   labelPosition?: LabelPosition;
   value?: string;
   size?: Size;
+  border?: boolean;
+  required?: Required;
 };
 
 const Input: React.FC<Props> = ({
-  labelPosition = "side",
+  labelPosition = "top",
   value = "",
   size = "xs",
-  // quiet,
-  // isRequired,
+  border = true,
+  required = '',
   // typeRequired,
   // labelInfo,
   // idDisabled,
 }) => {
+  const isInputRequired = () => {
+    if (required === 'required') {
+      return <span className=""></span>
+    }
+  }
+
+  console.log(required);
+
   const formLabelPosition =
     labelPosition === "top"
       ? "form-element__wrapper_label-top"
       : "form-element__wrapper_label-side";
 
-  const sizeInput = () => {
+  const isInputBorder = border === true ? "form-element__wrapper_border" : null;
+
+  const sizeVariables = () => {
     switch (size) {
-      case 'xs':
+      case "xs":
         return {
-          '--input-padding-block': '2px',
-          '--input-padding-left': '12px',
-          '--input-padding-right': '12px',
-          '--input-line-height': '20px',
-          '--input-font-size': '12px',
-        }
-      case 'md':
+          "--input-padding-block": "2px",
+          "--input-padding-left": "12px",
+          "--input-padding-right": "12px",
+          "--input-line-height": "20px",
+          "--input-font-size": "12px",
+        };
+      case "md":
         return {
-          '--input-padding-block': '8px',
-          '--input-padding-left': '12px',
-          '--input-padding-right': '12px',
-          '--input-line-height': '20px',
-          '--input-font-size': '12px',
-        }
-      case 'lg':
+          "--input-padding-block": "8px",
+          "--input-padding-left": "12px",
+          "--input-padding-right": "12px",
+          "--input-line-height": "20px",
+          "--input-font-size": "12px",
+        };
+      case "lg":
         return {
-          '--input-padding-block': '8px',
-          '--input-padding-left': '16px',
-          '--input-padding-right': '16px',
-          '--input-line-height': '24px',
-          '--input-font-size': '14px',
-        }
-      case 'xl':
+          "--input-padding-block": "8px",
+          "--input-padding-left": "16px",
+          "--input-padding-right": "16px",
+          "--input-line-height": "24px",
+          "--input-font-size": "14px",
+        };
+      case "xl":
         return {
-          '--input-padding-block': '12px',
-          '--input-padding-left': '16px',
-          '--input-padding-right': '16px',
-          '--input-line-height': '24px',
-          '--input-font-size': '14px',
-        }
+          "--input-padding-block": "12px",
+          "--input-padding-left": "16px",
+          "--input-padding-right": "16px",
+          "--input-line-height": "24px",
+          "--input-font-size": "14px",
+        };
     }
-  }
+  };
 
   const applySizeVariables = () => {
-    const variables = sizeInput();
+    const variables = sizeVariables();
     for (const [key, value] of Object.entries(variables)) {
       document.documentElement.style.setProperty(key, value);
     }
@@ -75,8 +88,10 @@ const Input: React.FC<Props> = ({
   console.log(formLabelPosition);
 
   return (
-    <div style={{ "--input-padding-block": "0px" } as React.CSSProperties} className="form-element">
-      <div className={`form-element__wrapper ${formLabelPosition}`}>
+    <div
+      className="form-element"
+    >
+      <div className={`form-element__wrapper ${formLabelPosition} ${isInputBorder}`}>
         <label htmlFor="email" className="form-element__label">
           Email
         </label>
