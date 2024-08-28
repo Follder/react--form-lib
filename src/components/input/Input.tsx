@@ -3,7 +3,8 @@ import "./input.scss";
 
 type LabelPosition = "top" | "side";
 type Size = "xs" | "md" | "lg" | "xl";
-type Required = string | 'required' | 'asteriks';
+type Required = string | "required" | "*";
+type Info = string | null;
 
 type Props = {
   labelPosition?: LabelPosition;
@@ -11,6 +12,7 @@ type Props = {
   size?: Size;
   border?: boolean;
   required?: Required;
+  info?: Info;
 };
 
 const Input: React.FC<Props> = ({
@@ -18,25 +20,37 @@ const Input: React.FC<Props> = ({
   value = "",
   size = "xs",
   border = true,
-  required = '',
-  // typeRequired,
+  required = "optional",
+  info = "",
   // labelInfo,
   // idDisabled,
 }) => {
   const isInputRequired = () => {
-    if (required === 'required') {
-      return <span className=""></span>
+    switch (required) {
+      case "required":
+        return "(required)";
+      case "*":
+        return "*";
+      case "":
+        return null;
+      default:
+        return `(${required})`;
     }
-  }
+  };
 
-  console.log(required);
+  const getInfoIconClassName = () => {
+    return info ? "form-element__label_icon" : null;
+  };
+
 
   const formLabelPosition =
     labelPosition === "top"
       ? "form-element__wrapper_label-top"
       : "form-element__wrapper_label-side";
 
-  const isInputBorder = border === true ? "form-element__wrapper_border" : null;
+  const borderValue = border === true ? "form-element__wrapper_border" : null;
+  const requiredValue = isInputRequired();
+  const formElementLabelIcon = getInfoIconClassName();
 
   const sizeVariables = () => {
     switch (size) {
@@ -88,12 +102,26 @@ const Input: React.FC<Props> = ({
   console.log(formLabelPosition);
 
   return (
-    <div
-      className="form-element"
-    >
-      <div className={`form-element__wrapper ${formLabelPosition} ${isInputBorder}`}>
-        <label htmlFor="email" className="form-element__label">
+    <div className="form-element">
+      <div
+        className={`form-element__wrapper ${formLabelPosition} ${borderValue}`}
+      >
+        <label
+          htmlFor="email"
+          className={`form-element__label ${formElementLabelIcon}`}
+        >
           Email
+          <span
+            style={{ marginLeft: info ? "16px" : "4px" }}
+            className={
+              required === "*"
+                ? "form-element__required_asteriks"
+                : "form-element__required"
+            }
+            title={'info'}
+          >
+            {requiredValue}
+          </span>
         </label>
         <input
           type="text"
@@ -101,6 +129,7 @@ const Input: React.FC<Props> = ({
           placeholder="Input..."
           id="email"
           value={value}
+          required={required === "required" || required === "*"}
         />
       </div>
       <div className="form-element__helper-text">

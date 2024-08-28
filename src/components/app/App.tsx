@@ -6,7 +6,7 @@ function App() {
     <div className="page">
       <header className="container">
         <div className="page__wrapper">
-          <Input required={'my own text'} />
+          <Input />
         </div>
       </header>
     </div>
