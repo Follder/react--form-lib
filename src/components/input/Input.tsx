@@ -1,139 +1,157 @@
-import React from "react";
+import React, { useState } from "react";
+import InfoIcon from "../icons/Info/Info";
 import "./input.scss";
 
 type LabelPosition = "top" | "side";
 type Size = "xs" | "md" | "lg" | "xl";
 type Required = string | "required" | "*";
 type Info = string | null;
+type LeftIcon = "user" | "search" | "password" | "email" | null;
+type RightIcon = "help" | null;
 
 type Props = {
   labelPosition?: LabelPosition;
   value?: string;
   size?: Size;
-  border?: boolean;
+  isQuiet?: boolean;
   required?: Required;
   info?: Info;
+  isValid?: boolean;
+  helperText?: string | null;
+  errorText?: string | null;
+  isDisabled?: boolean;
+  leftIcon?: LeftIcon;
+  rightIcon?: RightIcon;
+  isCmndIcon?: boolean;
 };
 
 const Input: React.FC<Props> = ({
   labelPosition = "top",
-  value = "",
-  size = "xs",
-  border = true,
-  required = "optional",
-  info = "",
-  // labelInfo,
-  // idDisabled,
+  value = "fdfs",
+  size = "xl",
+  isQuiet = false,
+  required = "4534",
+  info = "This is a tooltip",
+  isValid = false,
+  helperText = "This is a hint text to help user111.",
+  errorText = "Wrong value",
+  isDisabled = false,
+  leftIcon = "search",
+  rightIcon = "help",
+  isCmndIcon = true,
 }) => {
-  const isInputRequired = () => {
+  const [query, setQuery] = useState(value);
+
+  const getRequiredOption = () => {
     switch (required) {
       case "required":
-        return "(required)";
+        return {
+          labelText: "(required)",
+          helperText: "This field is required",
+          required: true,
+        };
       case "*":
-        return "*";
+        return {
+          labelText: "*",
+          helperText: "This field is required",
+          required: true,
+        };
       case "":
-        return null;
+        return {
+          labelText: "",
+          helperText: "",
+          required: false,
+        };
       default:
-        return `(${required})`;
-    }
-  };
-
-  const getInfoIconClassName = () => {
-    return info ? "form-element__label_icon" : null;
-  };
-
-
-  const formLabelPosition =
-    labelPosition === "top"
-      ? "form-element__wrapper_label-top"
-      : "form-element__wrapper_label-side";
-
-  const borderValue = border === true ? "form-element__wrapper_border" : null;
-  const requiredValue = isInputRequired();
-  const formElementLabelIcon = getInfoIconClassName();
-
-  const sizeVariables = () => {
-    switch (size) {
-      case "xs":
         return {
-          "--input-padding-block": "2px",
-          "--input-padding-left": "12px",
-          "--input-padding-right": "12px",
-          "--input-line-height": "20px",
-          "--input-font-size": "12px",
-        };
-      case "md":
-        return {
-          "--input-padding-block": "8px",
-          "--input-padding-left": "12px",
-          "--input-padding-right": "12px",
-          "--input-line-height": "20px",
-          "--input-font-size": "12px",
-        };
-      case "lg":
-        return {
-          "--input-padding-block": "8px",
-          "--input-padding-left": "16px",
-          "--input-padding-right": "16px",
-          "--input-line-height": "24px",
-          "--input-font-size": "14px",
-        };
-      case "xl":
-        return {
-          "--input-padding-block": "12px",
-          "--input-padding-left": "16px",
-          "--input-padding-right": "16px",
-          "--input-line-height": "24px",
-          "--input-font-size": "14px",
+          labelText: `(${required})`,
+          helperText: helperText,
+          required: false,
         };
     }
   };
 
-  const applySizeVariables = () => {
-    const variables = sizeVariables();
-    for (const [key, value] of Object.entries(variables)) {
-      document.documentElement.style.setProperty(key, value);
-    }
+  const requiredOption = getRequiredOption();
+
+  const generateClassname = (
+    propps: string | boolean | null,
+    value: string | boolean,
+    className: string,
+    secondClassName: string | null = null
+  ) => {
+    return propps === value ? className : secondClassName;
   };
 
-  React.useEffect(() => {
-    applySizeVariables();
-  }, [size]);
-  console.log(formLabelPosition);
+  const position = generateClassname(
+    labelPosition,
+    "top",
+    "form-element_top",
+    "form-element_side"
+  );
+  const require = generateClassname(required, "*", "form-element_attention");
+  const helperTextAttention = generateClassname(
+    required,
+    "required",
+    "form-element_attentionText"
+  );
+  const quiet = generateClassname(isQuiet, true, "form-element_quiet");
+  const error = generateClassname(isValid, false, "form-element_error");
+  const searchIcon = generateClassname(
+    leftIcon,
+    "search",
+    "form-element_icon-left form-element_icon-left-search"
+  );
+  const helpIcon = generateClassname(
+    rightIcon,
+    "help",
+    "form-element_icon-right"
+  );
+  const cmndIcon = generateClassname(
+    isCmndIcon,
+    true,
+    "form-element_icon-cmnd"
+  );
+
+  const getSizeClassname = () => `form-element_${size}`;
+  const sizeClassname = getSizeClassname();
+
+  const infoIcon = () =>
+    info && (
+      <span className="form-element__label-icon">
+        {info && <span className="form-element__label-info">{info}</span>}
+        <InfoIcon />
+      </span>
+    );
 
   return (
-    <div className="form-element">
-      <div
-        className={`form-element__wrapper ${formLabelPosition} ${borderValue}`}
-      >
-        <label
-          htmlFor="email"
-          className={`form-element__label ${formElementLabelIcon}`}
-        >
+    <div
+      className={`form-element ${position} ${require} ${quiet} ${helperTextAttention} ${sizeClassname} ${error} ${searchIcon} ${helpIcon}`}
+    >
+      <div className="form-element__wrapper">
+        <label htmlFor="email" className="form-element__label">
           Email
-          <span
-            style={{ marginLeft: info ? "16px" : "4px" }}
-            className={
-              required === "*"
-                ? "form-element__required_asteriks"
-                : "form-element__required"
-            }
-            title={'info'}
-          >
-            {requiredValue}
-          </span>
+          {infoIcon()}
+          {required && (
+            <span className="form-element__required">
+              {requiredOption.labelText}
+            </span>
+          )}
         </label>
-        <input
-          type="text"
-          className={`form-element__input`}
-          placeholder="Input..."
-          id="email"
-          value={value}
-          required={required === "required" || required === "*"}
-        />
+        <div className={`${cmndIcon}`}>
+          <input
+            type="text"
+            className={`form-element__input`}
+            placeholder="Input..."
+            id="email"
+            value={query}
+            required={requiredOption?.required}
+            onChange={(e) => setQuery(e.target.value)}
+            disabled={isDisabled}
+          />
+        </div>
       </div>
       <div className="form-element__helper-text">
-        This is a hint text to help user.
+        {isValid ? requiredOption.helperText : errorText}
       </div>
     </div>
   );
