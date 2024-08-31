@@ -8,6 +8,7 @@ type Required = string | "required" | "*";
 type Info = string | null;
 type LeftIcon = "user" | "search" | "password" | "email" | null;
 type RightIcon = "help" | null;
+type Type = "text" | "email" | "password" | "user";
 
 type Props = {
   labelPosition?: LabelPosition;
@@ -23,22 +24,30 @@ type Props = {
   leftIcon?: LeftIcon;
   rightIcon?: RightIcon;
   isCmndIcon?: boolean;
+  type?: Type;
+  name?: string;
+  placeholder?: string | undefined;
+  customClassname?: string;
 };
 
 const Input: React.FC<Props> = ({
   labelPosition = "top",
-  value = "fdfs",
-  size = "xl",
+  value = "",
+  size = "md",
   isQuiet = false,
-  required = "4534",
+  required = "fdf",
   info = "This is a tooltip",
-  isValid = false,
-  helperText = "This is a hint text to help user111.",
+  isValid = true,
+  helperText = "This is a hint text to help user.",
   errorText = "Wrong value",
   isDisabled = false,
   leftIcon = "search",
   rightIcon = "help",
   isCmndIcon = true,
+  type = "email",
+  name = "",
+  placeholder = "Inp...",
+  customClassname = "",
 }) => {
   const [query, setQuery] = useState(value);
 
@@ -82,38 +91,72 @@ const Input: React.FC<Props> = ({
     return propps === value ? className : secondClassName;
   };
 
-  const position = generateClassname(
-    labelPosition,
-    "top",
-    "form-element_top",
-    "form-element_side"
+  const getSizeClassname = () => `form-element_${size}`;
+
+  const getClassnameRow = (
+    initialClassname: string,
+    addClassnames: (string | null)[]
+  ): string => {
+    const filteredClassnames = addClassnames.filter((name) => name !== null);
+
+    const classNames = filteredClassnames.reduce((acc, next) => {
+      return acc + " " + next;
+    }, initialClassname);
+
+    return classNames;
+  };
+
+  const formElementClassnames = [];
+  const inputElementClassnames = [];
+
+  formElementClassnames.push(
+    generateClassname(
+      labelPosition,
+      "top",
+      "form-element_top",
+      "form-element_side"
+    )
   );
-  const require = generateClassname(required, "*", "form-element_attention");
-  const helperTextAttention = generateClassname(
-    required,
-    "required",
-    "form-element_attentionText"
+  formElementClassnames.push(
+    generateClassname(required, "*", "form-element_attention")
   );
-  const quiet = generateClassname(isQuiet, true, "form-element_quiet");
-  const error = generateClassname(isValid, false, "form-element_error");
-  const searchIcon = generateClassname(
-    leftIcon,
-    "search",
-    "form-element_icon-left form-element_icon-left-search"
+  formElementClassnames.push(
+    generateClassname(required, "required", "form-element_attentionText")
   );
-  const helpIcon = generateClassname(
-    rightIcon,
-    "help",
-    "form-element_icon-right"
+  formElementClassnames.push(
+    generateClassname(isQuiet, true, "form-element_quiet")
   );
-  const cmndIcon = generateClassname(
-    isCmndIcon,
-    true,
-    "form-element_icon-cmnd"
+  formElementClassnames.push(
+    generateClassname(isValid, false, "form-element_error")
+  );
+  formElementClassnames.push(
+    generateClassname(
+      leftIcon,
+      "search",
+      "form-element_icon-left form-element_icon-left-search"
+    )
+  );
+  formElementClassnames.push(
+    generateClassname(rightIcon, "help", "form-element_icon-right")
+  );
+  formElementClassnames.push(
+    generateClassname(isCmndIcon, true, "form-element_icon-right-offset")
+  );
+  formElementClassnames.push(getSizeClassname());
+  formElementClassnames.push(
+    generateClassname(isDisabled, true, "form-element_disabled")
+  );
+  inputElementClassnames.push(
+    generateClassname(isCmndIcon, true, "form-element_icon-cmnd")
   );
 
-  const getSizeClassname = () => `form-element_${size}`;
-  const sizeClassname = getSizeClassname();
+  const formElement = getClassnameRow("form-element", formElementClassnames);
+  const inputElement = getClassnameRow(
+    "form-element__input",
+    inputElementClassnames
+  );
+
+  console.log(formElement);
 
   const infoIcon = () =>
     info && (
@@ -124,11 +167,9 @@ const Input: React.FC<Props> = ({
     );
 
   return (
-    <div
-      className={`form-element ${position} ${require} ${quiet} ${helperTextAttention} ${sizeClassname} ${error} ${searchIcon} ${helpIcon}`}
-    >
+    <div className={formElement}>
       <div className="form-element__wrapper">
-        <label htmlFor="email" className="form-element__label">
+        <label htmlFor="id" className="form-element__label">
           Email
           {infoIcon()}
           {required && (
@@ -137,12 +178,13 @@ const Input: React.FC<Props> = ({
             </span>
           )}
         </label>
-        <div className={`${cmndIcon}`}>
+        <div className={inputElement}>
           <input
-            type="text"
-            className={`form-element__input`}
-            placeholder="Input..."
-            id="email"
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            id='id'
+            className={customClassname}
             value={query}
             required={requiredOption?.required}
             onChange={(e) => setQuery(e.target.value)}

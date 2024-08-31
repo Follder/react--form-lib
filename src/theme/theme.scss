@@ -1,0 +1,65 @@
+:root {
+  --label-color-light: #1a1a1e;
+  --background-light: #F4F5F7;
+  --input-text-attention-light: #d92d20;
+  --input-border-light: #d1d1d6;
+  --input-error-border-light: #fda29b;
+  --input-error-outline-light: #fcd2cf;
+  --input-focus-border-light: #96d0ff;
+  --input-focus-outline-light: #cde5fe;
+  --input-icon-border-light: #e4e4e7;
+  --input-info-background-light: #131316;
+  --input-info-text-light: #fff;
+  --input-helper-text-light: #51525c;
+  --input-placeholder-light: #70707b;
+  --input-disabled-light: #D1D1D6;
+  
+  --label-color-dark: #FAFAFA;
+  --background-dark: #1A1A1E;
+  --input-text-attention-dark: #F97066;
+  --input-border-dark: #51525C;
+  --input-error-border-dark: #F97066;
+  --input-error-outline-dark: #4e2424;
+  --input-focus-border-dark: #53B1FD;
+  --input-focus-outline-dark: #1f3753;
+  --input-icon-border-dark: #3F3F46;
+  --input-info-background-dark: #FAFAFA;
+  --input-info-text-dark: #1a1a1e;
+  --input-helper-text-dark: #A0A0AB;
+  --input-placeholder-dark: #fafafac4;
+  --input-disabled-dark: #3F3F46;
+}
+
+.page[data-theme='light'] {
+  --label-color: var(--label-color-light);
+  --background: var(--background-light);
+  --input-text-attention: var(--input-text-attention-light);
+  --input-border: var(--input-border-light);
+  --input-error-border: var(--input-error-border-light);
+  --input-error-outline: var(--input-error-outline-light);
+  --input-focus-border: var(--input-focus-border-light);
+  --input-focus-outline: var(--input-focus-outline-light);
+  --input-icon-border: var(--input-icon-border-light);
+  --input-info-background: var(--input-info-background-light);
+  --input-info-text: var(--input-info-text-light);
+  --input-helper-text: var(--input-helper-text-light);
+  --input-placeholder: var(--input-placeholder-light);
+  --input-disabled: var(--input-disabled-light);
+}
+
+.page[data-theme='dark'] {
+  --label-color: var(--label-color-dark);
+  --background: var(--background-dark);
+  --input-text-attention: var(--input-text-attention-dark);
+  --input-border: var(--input-border-dark);
+  --input-error-border: var(--input-error-border-dark);
+  --input-error-outline: var(--input-error-outline-dark);
+  --input-focus-border: var(--input-focus-border-dark);
+  --input-focus-outline: var(--input-focus-outline-dark);
+  --input-icon-border: var(--input-icon-border-dark);
+  --input-info-background: var(--input-info-background-dark);
+  --input-info-text: var(--input-info-text-dark);
+  --input-helper-text: var(--input-helper-text-dark);
+  --input-placeholder: var(--input-placeholder-dark);
+  --input-disabled: var(--input-disabled-dark);
+}
