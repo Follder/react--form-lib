@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import InfoIcon from "../icons/Info/Info";
 import "./input.scss";
-
-type LabelPosition = "top" | "side";
-type Size = "xs" | "md" | "lg" | "xl";
-type Required = string | "required" | "*";
-type Info = string | null;
-type LeftIcon = "user" | "search" | "password" | "email" | null;
-type RightIcon = "help" | null;
-type Type = "text" | "email" | "password" | "user";
+import { LabelPosition } from "../../types/types";
+import { Size } from "../../types/types";
+import { Required } from "../../types/types";
+import { Info } from "../../types/types";
+import { LeftIcon } from "../../types/types";
+import { RightIcon } from "../../types/types";
+import { Type } from "../../types/types";
 
 type Props = {
   labelPosition?: LabelPosition;
@@ -68,7 +67,7 @@ const Input: React.FC<Props> = ({
       case "":
         return {
           labelText: "",
-          helperText: "",
+          helperText: helperText,
           required: false,
         };
       default:
@@ -97,7 +96,7 @@ const Input: React.FC<Props> = ({
     initialClassname: string,
     addClassnames: (string | null)[]
   ): string => {
-    const filteredClassnames = addClassnames.filter((name) => name !== null);
+    const filteredClassnames = addClassnames.filter((name): name is string => name !== null);
 
     const classNames = filteredClassnames.reduce((acc, next) => {
       return acc + " " + next;
@@ -156,7 +155,7 @@ const Input: React.FC<Props> = ({
     inputElementClassnames
   );
 
-  console.log(formElement);
+  console.log(':', requiredOption.helperText);
 
   const infoIcon = () =>
     info && (
