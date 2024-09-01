@@ -136,6 +136,27 @@ const Input: React.FC<Props> = ({
     )
   );
   formElementClassnames.push(
+    generateClassname(
+      leftIcon,
+      "user",
+      "form-element_icon-left form-element_icon-left-user"
+    )
+  );
+  formElementClassnames.push(
+    generateClassname(
+      leftIcon,
+      "password",
+      "form-element_icon-left form-element_icon-left-password"
+    )
+  );
+  formElementClassnames.push(
+    generateClassname(
+      leftIcon,
+      "email",
+      "form-element_icon-left form-element_icon-left-mail"
+    )
+  );
+  formElementClassnames.push(
     generateClassname(rightIcon, "help", "form-element_icon-right")
   );
   formElementClassnames.push(

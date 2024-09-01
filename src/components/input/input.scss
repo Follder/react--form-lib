@@ -204,6 +204,24 @@
       }
     }
 
+    &-user {
+      &::before {
+        background-image: url("../../assets/icons/user.svg");
+      }
+    }
+
+    &-password {
+      &::before {
+        background-image: url("../../assets/icons/password.svg");
+      }
+    }
+
+    &-mail {
+      &::before {
+        background-image: url("../../assets/icons/mail.svg");
+      }
+    }
+
     &-help {
       &::before {
         background-image: url("../../assets/icons/help.svg");
