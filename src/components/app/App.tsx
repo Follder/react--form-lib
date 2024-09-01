@@ -3,11 +3,8 @@ import Input from "../input/Input";
 import "./App.scss";
 import { LabelPosition } from "../../types/types";
 import { Size } from "../../types/types";
-import { Required } from "../../types/types";
-import { Info } from "../../types/types";
 import { LeftIcon } from "../../types/types";
 import { RightIcon } from "../../types/types";
-import { Type } from "../../types/types";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -25,40 +22,74 @@ function App() {
   const [isCmndIcon, setIsCmndIcon] = useState(true);
   const [placeholder, setPlaceholder] = useState("");
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  const toggleBtn = (
+    setFunc: (value: (prev: string) => string) => void,
+    arg1: string,
+    arg2: string
+  ) => {
+    setFunc((prev) => (prev === arg1 ? arg2 : arg1));
+  };
+
+  const toggleBooleanBtn = (
+    setFunc: (value: (prev: boolean) => boolean) => void,
+    arg1: boolean,
+    arg2: boolean
+  ) => {
+    setFunc((prev) => (prev === arg1 ? arg2 : arg1));
   };
 
   return (
     <div className="page" data-theme={theme}>
       <header className="container">
         <div className="settings">
+          <h1>Playground</h1>
+          <div className="settings__theme">
+            <button
+              onClick={() => toggleBtn(setTheme, "light", "dark")}
+              className={theme === "dark" ? "active" : ""}
+            >
+              Switch to {theme === "light" ? "Dark" : "Light"} Theme
+            </button>
+          </div>
           <div className="settings__label">
-            <label>
-              Top
+            Choose label position:
+            <div className="settings__label-radio">
+              <label
+                htmlFor="top"
+                className={labelPosition === "top" ? "active" : ""}
+              >
+                Top
+              </label>
               <input
                 type="radio"
+                id="top"
                 value="top"
                 checked={labelPosition === "top"}
                 onChange={(e) =>
                   setLabelPosition(e.target.value as LabelPosition)
                 }
               />
-            </label>
-            <label>
-              Side
+            </div>
+            <div className="settings__label-radio">
+              <label
+                htmlFor="side"
+                className={labelPosition === "side" ? "active" : ""}
+              >
+                Side
+              </label>
               <input
                 type="radio"
+                id="side"
                 value="side"
                 checked={labelPosition === "side"}
                 onChange={(e) =>
                   setLabelPosition(e.target.value as LabelPosition)
                 }
               />
-            </label>
+            </div>
           </div>
           <div className="settings__size">
-            <label htmlFor="size-select">Choose a size:</label>
+            <label htmlFor="size-select">Choose your size:</label>
             <select
               id="size-select"
               value={size}
@@ -71,14 +102,12 @@ function App() {
             </select>
           </div>
           <div className="settings__quiet">
-            <label>
-              Without border:
-              <input
-                type="checkbox"
-                checked={isQuiet}
-                onChange={(e) => setIsQuiet(e.target.checked)}
-              />
-            </label>
+            <button
+              onClick={() => toggleBooleanBtn(setIsQuiet, true, false)}
+              className={isQuiet === true ? "active" : ""}
+            >
+              {isQuiet === true ? "With" : "Without"} border
+            </button>
           </div>
           <div className="settings__required">
             <label>
@@ -97,7 +126,7 @@ function App() {
           </div>
           <div className="settings__info">
             <label>
-              Add info icon with your text:
+              Add info icon with your message:
               <input
                 type="text"
                 value={info}
@@ -107,7 +136,7 @@ function App() {
           </div>
           <div className="settings__helper">
             <label>
-              Your helper text:
+              Your helper message:
               <input
                 type="text"
                 value={helperText}
@@ -116,18 +145,16 @@ function App() {
             </label>
           </div>
           <div className="settings__valid">
-            <label>
-              Error state off:
-              <input
-                type="checkbox"
-                checked={isValid}
-                onChange={(e) => setIsValid(e.target.checked)}
-              />
-            </label>
+            <button
+              onClick={() => toggleBooleanBtn(setIsValid, true, false)}
+              className={isValid === false ? "active" : ""}
+            >
+              Error state {isValid === false ? "Off" : "On"}
+            </button>
           </div>
           <div className="settings__error">
             <label>
-              Your error text:
+              Your error message:
               <input
                 type="text"
                 value={errorText}
@@ -136,56 +163,63 @@ function App() {
             </label>
           </div>
           <div className="settings__disabled">
-            <label>
-              Your input disabled?
-              <input
-                type="checkbox"
-                checked={isDisabled}
-                onChange={(e) => setIsDisabled(e.target.checked)}
-              />
-            </label>
-          </div>
-          <div className="settings__left">
-            <label htmlFor="left-select">Choose left icon:</label>
-            <select
-              id="left-select"
-              value={leftIcon || ''}
-              onChange={(e) => {
-                const newValue = e.target.value === "" ? null : (e.target.value as LeftIcon);
-                setLeftIcon(newValue);
-              }}
+            <button
+              onClick={() => toggleBooleanBtn(setIsDisabled, true, false)}
+              className={isDisabled === true ? "active" : ""}
             >
-              <option value="">Without icon</option>
-              <option value="user">User</option>
-              <option value="search">Search</option>
-              <option value="password">Password</option>
-              <option value="email">Email</option>
-            </select>
+              Disabled {isDisabled === true ? "False" : "True"}
+            </button>
           </div>
-          <div className="settings__right">
-            <label htmlFor="right-select">Choose right icon:</label>
-            <select
-              id="right-select"
-              value={rightIcon || ''}
-              onChange={(e) => {
-                const newValue = e.target.value === "" ? null : (e.target.value as RightIcon);
-                setRightIcon(newValue);
-              }}
-            >
-              <option value="">Without icon</option>
-              <option value="help">Help</option>
-            </select>
-          </div>
-          <div className="settings__cmnd">
-            <label>
-              Add cmnd icon:
-              <input
-                type="checkbox"
-                checked={isCmndIcon}
-                onChange={(e) => setIsCmndIcon(e.target.checked)}
-              />
-            </label>
-          </div>
+          {labelPosition === "top" && (
+            <>
+              <div className="settings__left">
+                <label htmlFor="left-select">Choose left icon:</label>
+                <select
+                  id="left-select"
+                  value={leftIcon || ""}
+                  onChange={(e) => {
+                    const newValue =
+                      e.target.value === ""
+                        ? null
+                        : (e.target.value as LeftIcon);
+                    setLeftIcon(newValue);
+                  }}
+                >
+                  <option value="">Without icon</option>
+                  <option value="user">User</option>
+                  <option value="search">Search</option>
+                  <option value="password">Password</option>
+                  <option value="email">Email</option>
+                </select>
+              </div>
+              <div className="settings__right">
+                <label htmlFor="right-select">Choose right icon:</label>
+                <select
+                  id="right-select"
+                  value={rightIcon || ""}
+                  onChange={(e) => {
+                    const newValue =
+                      e.target.value === ""
+                        ? null
+                        : (e.target.value as RightIcon);
+                    setRightIcon(newValue);
+                  }}
+                >
+                  <option value="">Without icon</option>
+                  <option value="help">Help</option>
+                </select>
+              </div>
+              <div className="settings__cmnd">
+                <button
+                  onClick={() => toggleBooleanBtn(setIsCmndIcon, true, false)}
+                  className={isCmndIcon === false ? "active" : ""}
+                >
+                  {isCmndIcon === false ? "With" : "Without"} cmnd icon
+                </button>
+              </div>
+            </>
+          )}
+
           <div className="settings__placeholder">
             <label>
               Your placeholder:
@@ -196,11 +230,8 @@ function App() {
               />
             </label>
           </div>
-
         </div>
-        <button onClick={toggleTheme} className="toggleButton">
-          Switch to {theme === "light" ? "Dark" : "Light"} Theme
-        </button>
+
         <div className="page__wrapper">
           <Input
             labelPosition={labelPosition}
