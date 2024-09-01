@@ -190,7 +190,7 @@ const Input: React.FC<Props> = ({
     <div className={formElement}>
       <div className="form-element__wrapper">
         <label htmlFor="id" className="form-element__label">
-          Email
+          Label
           {infoIcon()}
           {required && (
             <span className="form-element__required">
