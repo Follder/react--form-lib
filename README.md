@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Input UI library
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Demo
 
-## Available Scripts
+Playground: [DEMO LINK](https://follder.github.io/react_input-lib/)
 
-In the project directory, you can run:
+## Input anatomy
 
-### `npm start`
+### Label position
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Labels can be placed either on top or on the side. Top labels are the default and are recommended because they work better with long copy, localization, and responsive layouts. Side labels are most useful when vertical space is limited.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Value
 
-### `npm test`
+The value shows a user’s entered text.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Size
 
-### `npm run build`
+Text fields come in four different sizes: extra small (xs), medium (md), large (lr), and extra-large (xl).
+The medium size is the default and most frequently used option. Use the other sizes sparingly; they should be used to create a hierarchy of importance within the page.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Quiet
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+By default, text fields have a visible border. This style works best in a dense array of controls where the border helps to separate the input from the surrounding container, or to give visibility to isolated buttons.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Alternatively, quiet text fields can have no visible border. This style works best when a clear layout (vertical stack, table, grid) makes it easy to parse. Too many quiet components in a small space can be hard to read.
 
-### `npm run eject`
+### Required or optional
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Text fields can be marked as optional or required, depending on the situation. For required text fields, there are two styling options: a “(required)” label or an asterisk (\*).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Optional text fields are either denoted with text added to the end of the label — “(optional)” — or other custom text, or have no indication at all.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Info icon
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Text fields may contain an information icon to provide details about the functionality or information for the user.
 
-## Learn More
+### Error
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+A text field can be marked as having an issue to indicate that a value needs to be entered in order to proceed or that a value that was entered is invalid.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Disabled
 
-### Code Splitting
+A text field in a disabled state shows that an input field exists, but is not available in that circumstance. This can be used to maintain layout continuity and communicate that a field may become available later.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Help text (description and error message)
 
-### Analyzing the Bundle Size
+A text field can have help text below the field to give extra context or instruction about what a user should input in the field. The help text area has two options: a description and an error message.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The description communicates a hint or helpful information, such as specific requirements for correctly filling out the field.
 
-### Making a Progressive Web App
+The error message communicates an error for when the field requirements aren’t met, prompting a user to adjust what they had originally input.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Left icons
 
-### Advanced Configuration
+Optionally, you can use the icons to choose from on the left side of the input. There are four options of icons that can emphasize the purpose of your text field, such as "(user)", "(search)", "(password)" and "(email)"
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Right icon
 
-### Deployment
+Optionally, you can use icon "(help)" on the right side of the input
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Cmnd icon
 
-### `npm run build` fails to minify
+Also, optionally, you can use the "(Cmnd+K)" icon on the right side of the input
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technologies Used
+
+- Typescript, JavaScript (ES6)
+- React
+- HTML5
+- CSS3
+- SCSS
+- Git
+- Github
+
+## Contacts
+
+Dmytro Koriahin - [@Dmytro Koriahin](https://github.com/Follder) - [dmytro.koriahin@gmail.com](mailto:dmytro.koriahin@gmail.com)
+
+Project Link: https://github.com/Follder/react_input-lib
+
+Created as a test project for Rubik UI Kit
