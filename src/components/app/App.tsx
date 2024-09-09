@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "../input/Input";
+import Input from "../input/InputGroup";
 import "./App.scss";
 import { LabelPosition } from "../../types/types";
 import { Size } from "../../types/types";
@@ -11,7 +11,8 @@ function App() {
   const [labelPosition, setLabelPosition] = useState<LabelPosition>("top");
   const [size, setSize] = useState<Size>("md");
   const [isQuiet, setIsQuiet] = useState(false);
-  const [required, setRequired] = useState("");
+  const [required, setRequired] = useState(false);
+  const [requiredText, setRequiredText] = useState("");
   const [info, setInfo] = useState("");
   const [isValid, setIsValid] = useState(true);
   const [helperText, setHelperText] = useState("");
@@ -111,12 +112,20 @@ function App() {
             </button>
           </div>
           <div className="settings__required">
+            <button
+              onClick={() => toggleBooleanBtn(setRequired, true, false)}
+              className={required === true ? "active" : ""}
+            >
+              Required {required === true ? "False" : "True"}
+            </button>
+          </div>
+          <div className="settings__required">
             <label>
-              Required:
+              RequiredText:
               <input
                 type="text"
-                value={required}
-                onChange={(e) => setRequired(e.target.value)}
+                value={requiredText}
+                onChange={(e) => setRequiredText(e.target.value)}
               />
             </label>
             <div>
@@ -250,6 +259,7 @@ function App() {
             size={size}
             isQuiet={isQuiet}
             required={required}
+            requiredText={requiredText}
             info={info}
             isValid={isValid}
             helperText={helperText}

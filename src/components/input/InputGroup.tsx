@@ -1,21 +1,25 @@
-import React, { useState } from "react";
-import InfoIcon from "../icons/Info/Info";
-import "./input.scss";
+import React from "react";
+import "./InputGroup.scss";
 import { LabelPosition } from "../../types/types";
 import { Size } from "../../types/types";
 import { Required } from "../../types/types";
-import { Info } from "../../types/types";
 import { LeftIcon } from "../../types/types";
 import { RightIcon } from "../../types/types";
-import { Type } from "../../types/types";
+import { generateClassname } from "../../utils/generateClassname";
+import { getClassnameRow } from "../../utils/getClassnameRow";
+import InputLabel from "../InputLabel/InputLabel";
+import InputAnnotation from "../InputAnnotation/InputAnnotation";
+import InputText from "../InputText/InputText";
+import { getRequiredOption } from "../../utils/getRequiredOption";
 
-type Props = {
+interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   labelPosition?: LabelPosition;
   value?: string;
   size?: Size;
   isQuiet?: boolean;
-  required?: Required;
-  info?: Info;
+  required?: boolean;
+  requiredText?: Required;
+  info?: string | null;
   isValid?: boolean;
   helperText?: string | null;
   errorText?: string | null;
@@ -23,19 +27,18 @@ type Props = {
   leftIcon?: LeftIcon;
   rightIcon?: RightIcon;
   isCmndIcon?: boolean;
-  type?: Type;
-  name?: string;
   placeholder?: string | undefined;
   label?: string;
   customClassname?: string;
 };
 
-const Input: React.FC<Props> = ({
+const InputGroup: React.FC<Props> = ({
   labelPosition = "top",
   value = "",
   size = "md",
   isQuiet = false,
-  required = "fdf",
+  required = true,
+  requiredText = 'fdf',
   info = "This is a tooltip",
   isValid = true,
   helperText = "This is a hint text to help user.",
@@ -44,69 +47,13 @@ const Input: React.FC<Props> = ({
   leftIcon = "search",
   rightIcon = "help",
   isCmndIcon = true,
-  type = "email",
-  name = "",
   placeholder = "Inp...",
-  label = 'Label',
+  label = "Label",
   customClassname = "",
+  ...nativeInputProps
 }) => {
-  const [query, setQuery] = useState(value);
-
-  const getRequiredOption = () => {
-    switch (required) {
-      case "required":
-        return {
-          labelText: "(required)",
-          helperText: "This field is required",
-          required: true,
-        };
-      case "*":
-        return {
-          labelText: "*",
-          helperText: "This field is required",
-          required: true,
-        };
-      case "":
-        return {
-          labelText: "",
-          helperText: helperText,
-          required: false,
-        };
-      default:
-        return {
-          labelText: `(${required})`,
-          helperText: helperText,
-          required: false,
-        };
-    }
-  };
-
-  const requiredOption = getRequiredOption();
-
-  const generateClassname = (
-    propps: string | boolean | null,
-    value: string | boolean,
-    className: string,
-    secondClassName: string | null = null
-  ) => {
-    return propps === value ? className : secondClassName;
-  };
-
+  const requiredOption = getRequiredOption(required, requiredText, helperText);
   const getSizeClassname = () => `form-element_${size}`;
-
-  const getClassnameRow = (
-    initialClassname: string,
-    addClassnames: (string | null)[]
-  ): string => {
-    const filteredClassnames = addClassnames.filter((name): name is string => name !== null);
-
-    const classNames = filteredClassnames.reduce((acc, next) => {
-      return acc + " " + next;
-    }, initialClassname);
-
-    return classNames;
-  };
-
   const formElementClassnames = [];
   const inputElementClassnames = [];
 
@@ -119,10 +66,10 @@ const Input: React.FC<Props> = ({
     )
   );
   formElementClassnames.push(
-    generateClassname(required, "*", "form-element_attention")
+    generateClassname(required, true, "form-element_attention")
   );
   formElementClassnames.push(
-    generateClassname(required, "required", "form-element_attentionText")
+    generateClassname(required, true, "form-element_attentionText")
   );
   formElementClassnames.push(
     generateClassname(isQuiet, true, "form-element_quiet")
@@ -178,47 +125,33 @@ const Input: React.FC<Props> = ({
     inputElementClassnames
   );
 
-  console.log(':', requiredOption.helperText);
-
-  const infoIcon = () =>
-    info && (
-      <span className="form-element__label-icon">
-        {info && <span className="form-element__label-info">{info}</span>}
-        <InfoIcon />
-      </span>
-    );
-
   return (
     <div className={formElement}>
       <div className="form-element__wrapper">
-        <label htmlFor="id" className="form-element__label">
-          {label}
-          {infoIcon()}
-          {required && (
-            <span className="form-element__required">
-              {requiredOption.labelText}
-            </span>
-          )}
-        </label>
+        <InputLabel
+          label={label}
+          requiredOption={requiredOption}
+          info={info}
+        />
         <div className={inputElement}>
-          <input
-            type={type}
-            name={name}
+          <InputText
+            nativeInputProps={nativeInputProps}
             placeholder={placeholder}
-            id='id'
-            className={customClassname}
-            value={query}
-            required={requiredOption?.required}
-            onChange={(e) => setQuery(e.target.value)}
-            disabled={isDisabled}
+            isDisabled={isDisabled}
+            required={required}
+            requiredOption={requiredOption}
+            value={value}
+            customClassname={customClassname}
           />
         </div>
       </div>
-      <div className="form-element__helper-text">
-        {isValid ? requiredOption.helperText : errorText}
-      </div>
+      <InputAnnotation
+        isValid={isValid}
+        requiredOption={requiredOption}
+        errorText={errorText}
+      />
     </div>
   );
 };
 
-export default Input;
+export default InputGroup;
