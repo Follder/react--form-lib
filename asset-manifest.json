@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react_input-lib/static/css/main.aadad0a5.css",
-    "main.js": "/react_input-lib/static/js/main.613fc26c.js",
+    "main.css": "/react_input-lib/static/css/main.97472816.css",
+    "main.js": "/react_input-lib/static/js/main.eeda2d1a.js",
     "static/media/cmnd.svg": "/react_input-lib/static/media/cmnd.29909c01c251cf6e1c54.svg",
     "static/media/help.svg": "/react_input-lib/static/media/help.a50a244b092cf33964a4.svg",
     "static/media/mail.svg": "/react_input-lib/static/media/mail.1f450336d3e91cc2a3c6.svg",
@@ -10,11 +10,11 @@
     "static/media/password.svg": "/react_input-lib/static/media/password.3908fbaadbdb21aac944.svg",
     "static/media/search.svg": "/react_input-lib/static/media/search.1d811baebaf9853e5600.svg",
     "index.html": "/react_input-lib/index.html",
-    "main.aadad0a5.css.map": "/react_input-lib/static/css/main.aadad0a5.css.map",
-    "main.613fc26c.js.map": "/react_input-lib/static/js/main.613fc26c.js.map"
+    "main.97472816.css.map": "/react_input-lib/static/css/main.97472816.css.map",
+    "main.eeda2d1a.js.map": "/react_input-lib/static/js/main.eeda2d1a.js.map"
   },
   "entrypoints": [
-    "static/css/main.aadad0a5.css",
-    "static/js/main.613fc26c.js"
+    "static/css/main.97472816.css",
+    "static/js/main.eeda2d1a.js"
   ]
 }
