@@ -12,7 +12,7 @@ import InputAnnotation from "../InputAnnotation/InputAnnotation";
 import InputText from "../InputText/InputText";
 import { getRequiredOption } from "../../utils/getRequiredOption";
 
-interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface InputGroupProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   labelPosition?: LabelPosition;
   size?: Size;
   isQuiet?: boolean;
@@ -31,7 +31,7 @@ interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'
   customClassname?: string;
 };
 
-const InputGroup: React.FC<Props> = ({
+const InputGroup: React.FC<InputGroupProps> = ({
   labelPosition = "top",
   size = "md",
   isQuiet = false,

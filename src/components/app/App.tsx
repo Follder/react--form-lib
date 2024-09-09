@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "../input/InputGroup";
+import Input from "../inputGroup/InputGroup";
 import "./App.scss";
 import { LabelPosition } from "../../types/types";
 import { Size } from "../../types/types";
