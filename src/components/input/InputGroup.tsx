@@ -14,7 +14,6 @@ import { getRequiredOption } from "../../utils/getRequiredOption";
 
 interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   labelPosition?: LabelPosition;
-  value?: string;
   size?: Size;
   isQuiet?: boolean;
   required?: boolean;
@@ -34,7 +33,6 @@ interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'
 
 const InputGroup: React.FC<Props> = ({
   labelPosition = "top",
-  value = "",
   size = "md",
   isQuiet = false,
   required = true,
@@ -140,7 +138,6 @@ const InputGroup: React.FC<Props> = ({
             isDisabled={isDisabled}
             required={required}
             requiredOption={requiredOption}
-            value={value}
             customClassname={customClassname}
           />
         </div>
