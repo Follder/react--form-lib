@@ -21,6 +21,7 @@ function App() {
   const [rightIcon, setRightIcon] = useState<RightIcon>(null);
   const [isCmndIcon, setIsCmndIcon] = useState(true);
   const [placeholder, setPlaceholder] = useState("");
+  const [label, setLabel] = useState("Email");
 
   const toggleBtn = (
     setFunc: (value: (prev: string) => string) => void,
@@ -230,6 +231,17 @@ function App() {
               />
             </label>
           </div>
+
+          <div className="settings__placeholder">
+            <label>
+              Your label:
+              <input
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+              />
+            </label>
+          </div>
         </div>
 
         <div className="page__wrapper">
@@ -246,6 +258,7 @@ function App() {
             leftIcon={leftIcon}
             rightIcon={rightIcon}
             isCmndIcon={isCmndIcon}
+            label={label}
             placeholder={placeholder}
           />
         </div>

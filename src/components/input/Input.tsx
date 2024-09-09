@@ -26,6 +26,7 @@ type Props = {
   type?: Type;
   name?: string;
   placeholder?: string | undefined;
+  label?: string;
   customClassname?: string;
 };
 
@@ -46,6 +47,7 @@ const Input: React.FC<Props> = ({
   type = "email",
   name = "",
   placeholder = "Inp...",
+  label = 'Label',
   customClassname = "",
 }) => {
   const [query, setQuery] = useState(value);
@@ -190,7 +192,7 @@ const Input: React.FC<Props> = ({
     <div className={formElement}>
       <div className="form-element__wrapper">
         <label htmlFor="id" className="form-element__label">
-          Label
+          {label}
           {infoIcon()}
           {required && (
             <span className="form-element__required">
