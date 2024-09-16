@@ -6,11 +6,9 @@ type Props = {
   requiredOption: RequiredOption,
   required: boolean,
   isDisabled: boolean,
-  nativeInputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
 const InputText: React.FC<Props> = ({
-  nativeInputProps = {},
   placeholder,
   customClassname,
   required,
@@ -19,8 +17,6 @@ const InputText: React.FC<Props> = ({
 
   return (
     <input
-      type={nativeInputProps.type}
-      name={nativeInputProps.name}
       placeholder={placeholder}
       id="id"
       className={customClassname}
