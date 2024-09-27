@@ -5,12 +5,19 @@ import { Size } from "../../types/types";
 import { Required } from "../../types/types";
 import { LeftIcon } from "../../types/types";
 import { RightIcon } from "../../types/types";
+<<<<<<< HEAD
 import { generateClassname } from "../../utils/generateClassname";
 import { getClassnameRow } from "../../utils/getClassnameRow";
+=======
+>>>>>>> sb
 import InputLabel from "../InputLabel/InputLabel";
 import InputAnnotation from "../InputAnnotation/InputAnnotation";
 import InputText from "../InputText/InputText";
 import { getRequiredOption } from "../../utils/getRequiredOption";
+<<<<<<< HEAD
+=======
+import { getFormElementClassNames } from "../../utils/getFormElementClassNames";
+>>>>>>> sb
 
 export interface InputGroupProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   labelPosition?: LabelPosition;
@@ -51,6 +58,7 @@ const InputGroup: React.FC<InputGroupProps> = ({
   ...nativeInputProps
 }) => {
   const requiredOption = getRequiredOption(required, requiredText, helperText);
+<<<<<<< HEAD
   const getSizeClassname = () => `form-element_${size}`;
   const formElementClassnames = [];
   const inputElementClassnames = [];
@@ -122,6 +130,20 @@ const InputGroup: React.FC<InputGroupProps> = ({
     "form-element__input",
     inputElementClassnames
   );
+=======
+
+  const { formElement, inputElement } = getFormElementClassNames({
+    labelPosition,
+    required,
+    isQuiet,
+    isValid,
+    leftIcon,
+    rightIcon,
+    isCmndIcon,
+    isDisabled,
+    size
+  })
+>>>>>>> sb
 
   return (
     <div className={formElement}>
@@ -133,11 +155,16 @@ const InputGroup: React.FC<InputGroupProps> = ({
         />
         <div className={inputElement}>
           <InputText
+<<<<<<< HEAD
             nativeInputProps={nativeInputProps}
             placeholder={placeholder}
             isDisabled={isDisabled}
             required={required}
             requiredOption={requiredOption}
+=======
+            {...nativeInputProps}
+            placeholder={placeholder}
+>>>>>>> sb
             customClassname={customClassname}
           />
         </div>
@@ -151,4 +178,8 @@ const InputGroup: React.FC<InputGroupProps> = ({
   );
 };
 
+<<<<<<< HEAD
 export default InputGroup;
+=======
+export default InputGroup;
+>>>>>>> sb

@@ -13,9 +13,9 @@ interface IconProps {
 
 const InfoIcon: React.FC<IconProps> = ({ info }) => (
   <>
-    {info && (
+    {!!info && (
       <span className="form-element__label-icon">
-        {info && <span className="form-element__label-info">{info}</span>}
+        <span className="form-element__label-info">{info}</span>
         <Icon />
       </span>
     )}

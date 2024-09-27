@@ -1,0 +1,21 @@
+:root {
+  --label-color: #1a1a1e;
+  --background: #F4F5F7;
+  --input-text-attention: #d92d20;
+  --input-border: #d1d1d6;
+  --input-error-border: #fda29b;
+  --input-error-outline: #fcd2cf;
+  --input-focus-border:#96d0ff;
+  --input-focus-outline: #cde5fe;
+  --input-icon-border: #e4e4e7;
+  --input-info-background: #131316;
+  --input-info-text: #fff;
+  --input-helper-text: #51525c;
+  --input-placeholder: #70707b;
+  --input-disabled: #D1D1D6;
+}
+
+
+#storybook-root {
+  margin-top: 30px;
+}
