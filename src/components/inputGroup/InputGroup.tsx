@@ -75,9 +75,6 @@ const InputGroup: React.FC<InputGroupProps> = ({
           <InputText
             {...nativeInputProps}
             placeholder={placeholder}
-            isDisabled={isDisabled}
-            required={required}
-            requiredOption={requiredOption}
             customClassname={customClassname}
           />
         </div>

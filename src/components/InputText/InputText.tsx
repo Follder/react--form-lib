@@ -1,27 +1,18 @@
-import { RequiredOption } from "../../types/types";
-
 type Props = {
-  placeholder: string | undefined,
   customClassname: string,
-  requiredOption: RequiredOption,
-  required: boolean,
-  isDisabled: boolean,
+  placeholder: string,
 }
 
 const InputText: React.FC<Props> = ({
-  placeholder,
   customClassname,
-  required,
-  isDisabled,
+  ...nativeInputProps
 }) => {
 
   return (
     <input
-      placeholder={placeholder}
       id="id"
       className={customClassname}
-      required={required}
-      disabled={isDisabled}
+      {...nativeInputProps}
     />
   )
 };
